@@ -140,7 +140,7 @@
         </div>
         <div class="header-content">
             <h1>FeedFun</h1>
-            <div class="game-info">当前轮次: <span id="currentRound">1</span> | 投币奖池: <span id="coinPool">0 FEED</span></div>
+            <div class="game-info">当前轮次: <span id="currentRound">1</span> | 硬币游戏奖池: <span id="coinPool">0 FEED</span></div>
         </div>
     </div>
     <div class="container">
@@ -162,50 +162,50 @@
         <div class="section">
             <div class="section-title">10人游戏</div>
             <div class="button-group">
-                <button id="betButton">下注 100亿 FEED</button>
+                <button id="betButton">投注 100亿 FEED</button>
             </div>
-            <div class="bet-position" id="betPosition">你尚未参与本轮！</div>
+            <div class="bet-position" id="betPosition">你尚未参与本轮游戏！</div>
             <table class="bets-table">
-                <thead><tr><th>编号</th><th>下注者</th></tr></thead>
+                <thead><tr><th>编号</th><th>投注者</th></tr></thead>
                 <tbody id="currentBets"></tbody>
             </table>
         </div>
         <div class="section">
-            <div class="section-title">投币游戏</div>
+            <div class="section-title">硬币游戏</div>
             <div class="button-group">
                 <button id="coinHeadsButton">正面 (10亿 FEED)</button>
                 <button id="coinTailsButton">反面 (10亿 FEED)</button>
             </div>
-            <div class="game-info">你的损失: <span id="coinLosses">0</span></div>
+            <div class="game-info">你的失败次数: <span id="coinLosses">0</span></div>
         </div>
         <div class="section">
-            <div class="section-title">玩法说明</div>
+            <div class="section-title">游戏规则</div>
             <div class="rules-text">
-                <strong>10人游戏：</strong><br>
-                1. 每位玩家下注 100亿 FEED（需要推荐人）。<br>
+                <strong>10人游戏:</strong><br>
+                1. 每位玩家投注 100亿 FEED（需要推荐人）。<br>
                 2. 每轮 10 名玩家。<br>
                 3. 获胜者获得 800亿 FEED。<br>
-                4. 88亿 FEED 分发给 10 级推荐人。<br>
-                5. 112亿 FEED 进入投币游戏奖池。<br>
-                6. 第 10 次下注自动结算本轮。<br>
-                * 注意：第 10 名玩家需增加 50% Gas。<br>
-                * 需先批准 FEED。<br>
-                <strong>投币游戏：</strong><br>
-                1. 下注 10亿 FEED（无需推荐人）。<br>
-                2. 40% 概率赢得 20亿 FEED。<br>
+                4. 88亿 FEED 分给 10 级推荐人。<br>
+                5. 112亿 FEED 进入硬币游戏奖池。<br>
+                6. 第 10 个投注自动结算本轮。<br>
+                * 注意：第 10 个玩家需要增加 50% 的 Gas。<br>
+                * 请先授权 FEED。<br>
+                <strong>硬币游戏:</strong><br>
+                1. 投注 10亿 FEED（需要推荐人）。<br>
+                2. 40% 概率赢 18亿 FEED，推荐人获得 2亿 FEED。<br>
                 3. 输掉的金额进入奖池。<br>
                 4. 奖池低于 20亿 FEED 时暂停。
             </div>
         </div>
         <div class="section">
-            <div class="section-title">10人游戏历史 (最近10轮)</div>
+            <div class="section-title">10人游戏历史 (最近 10 轮)</div>
             <table class="history-table">
                 <thead><tr><th>轮次</th><th>获胜者</th><th>编号</th></tr></thead>
                 <tbody id="tenGameHistory"></tbody>
             </table>
         </div>
         <div class="section">
-            <div class="section-title">投币游戏历史 (最近10次)</div>
+            <div class="section-title">硬币游戏历史 (最近 10 次)</div>
             <table class="history-table">
                 <thead><tr><th>玩家</th><th>结果</th><th>金额</th></tr></thead>
                 <tbody id="coinGameHistory"></tbody>
@@ -222,10 +222,51 @@
     <script src="https://cdn.jsdelivr.net/npm/web3@1.7.0/dist/web3.min.js"></script>
     <script>
         let web3, accounts, contract, feedContract;
-        const contractAddress = "0x8a72A0A3EF484e308e20a87D36602F57F5A522F9";
+        const contractAddress = "0x6Ff816320fA51e8DBCD5a1286aaB6cd2c9F35B26";
         const feedAddress = "0xe9Cb2D7ADC24Fc59FE00D6C0A0669BDF16805Fe0";
-        const contractABI = [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"bettor","type":"address"},{"indexed":false,"internalType":"uint256","name":"betNumber","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"round","type":"uint256"}],"name":"BetPlaced","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"player","type":"address"},{"indexed":false,"internalType":"bool","name":"won","type":"bool"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"CoinGamePlayed","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"user","type":"address"},{"indexed":true,"internalType":"address","name":"referrer","type":"address"}],"name":"ReferralSet","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"winner","type":"address"},{"indexed":false,"internalType":"uint256","name":"winningNumber","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"round","type":"uint256"}],"name":"RoundCompleted","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"round","type":"uint256"}],"name":"RoundStarted","type":"event"},{"inputs":[],"name":"COIN_BET_AMOUNT","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"COIN_WIN_REWARD","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"FEED","outputs":[{"internalType":"contract IERC20","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"MAX_BETS","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"TEN_BET_AMOUNT","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"TEN_WINNER_REWARD","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"currentBets","outputs":[{"internalType":"address","name":"bettor","type":"address"},{"internalType":"uint256","name":"blockNumber","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"currentRound","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"coinGamePool","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"tenGameHistory","outputs":[{"internalType":"address","name":"winner","type":"address"},{"internalType":"uint256","name":"winningNumber","type":"uint256"},{"internalType":"uint256","name":"totalBets","type":"uint256"},{"internalType":"uint256","name":"timestamp","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"coinGameHistory","outputs":[{"internalType":"address","name":"player","type":"address"},{"internalType":"bool","name":"won","type":"bool"},{"internalType":"uint256","name":"amount","type":"uint256"},{"internalType":"uint256","name":"timestamp","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"tenGameCount","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"coinGameCount","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"emergencyWithdraw","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"getCurrentBetCount","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getCurrentBets","outputs":[{"components":[{"internalType":"address","name":"bettor","type":"address"},{"internalType":"uint256","name":"blockNumber","type":"uint256"}],"internalType":"struct FeedFun.Bet[]","name":"","type":"tuple[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"user","type":"address"}],"name":"getLossCount","outputs":[{"internalType":"uint256","name":"tenLosses","type":"uint256"},{"internalType":"uint256","name":"coinLosses","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getTenGameHistory","outputs":[{"components":[{"internalType":"address","name":"winner","type":"address"},{"internalType":"uint256","name":"winningNumber","type":"uint256"},{"internalType":"uint256","name":"totalBets","type":"uint256"},{"internalType":"uint256","name":"timestamp","type":"uint256"}],"internalType":"struct FeedFun.RoundInfo[10]","name":"","type":"tuple[10]"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getCoinGameHistory","outputs":[{"components":[{"internalType":"address","name":"player","type":"address"},{"internalType":"bool","name":"won","type":"bool"},{"internalType":"uint256","name":"amount","type":"uint256"},{"internalType":"uint256","name":"timestamp","type":"uint256"}],"internalType":"struct FeedFun.CoinGameResult[10]","name":"","type":"tuple[10]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"bettor","type":"address"}],"name":"hasBetInCurrentRound","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"hasBetThisRound","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"placeBet","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"bool","name":"guess","type":"bool"}],"name":"playCoinGame","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"referrers","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"referrer","type":"address"}],"name":"setReferrer","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"tenGameLossCount","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"coinGameLossCount","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"}];
-        const feedABI = [{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"spender","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"}];
+        const contractABI = [
+            {"inputs":[],"stateMutability":"nonpayable","type":"constructor"},
+            {"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"bettor","type":"address"},{"indexed":false,"internalType":"uint256","name":"betNumber","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"round","type":"uint256"}],"name":"BetPlaced","type":"event"},
+            {"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"player","type":"address"},{"indexed":false,"internalType":"bool","name":"won","type":"bool"},{"indexed":false,"internalType":"bool","name":"guess","type":"bool"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"CoinGamePlayed","type":"event"},
+            {"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"user","type":"address"},{"indexed":true,"internalType":"address","name":"referrer","type":"address"}],"name":"ReferralSet","type":"event"},
+            {"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"winner","type":"address"},{"indexed":false,"internalType":"uint256","name":"winningNumber","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"round","type":"uint256"}],"name":"RoundCompleted","type":"event"},
+            {"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"round","type":"uint256"}],"name":"RoundStarted","type":"event"},
+            {"inputs":[],"name":"COIN_BET_AMOUNT","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
+            {"inputs":[],"name":"COIN_REFERRER_REWARD","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
+            {"inputs":[],"name":"COIN_WIN_REWARD","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
+            {"inputs":[],"name":"FEED","outputs":[{"internalType":"contract IERC20","name":"","type":"address"}],"stateMutability":"view","type":"function"},
+            {"inputs":[],"name":"MAX_BETS","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
+            {"inputs":[],"name":"TEN_BET_AMOUNT","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
+            {"inputs":[],"name":"TEN_WINNER_REWARD","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
+            {"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"REFERRAL_REWARDS","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
+            {"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"coinGameHistory","outputs":[{"internalType":"address","name":"player","type":"address"},{"internalType":"bool","name":"won","type":"bool"},{"internalType":"bool","name":"guess","type":"bool"},{"internalType":"uint256","name":"amount","type":"uint256"},{"internalType":"uint256","name":"timestamp","type":"uint256"}],"stateMutability":"view","type":"function"},
+            {"inputs":[],"name":"coinGameCount","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
+            {"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"coinGameLossCount","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
+            {"inputs":[],"name":"coinGamePool","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
+            {"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"currentBets","outputs":[{"internalType":"address","name":"bettor","type":"address"},{"internalType":"uint256","name":"blockNumber","type":"uint256"}],"stateMutability":"view","type":"function"},
+            {"inputs":[],"name":"currentRound","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
+            {"inputs":[],"name":"emergencyWithdraw","outputs":[],"stateMutability":"nonpayable","type":"function"},
+            {"inputs":[],"name":"getCoinGameHistory","outputs":[{"components":[{"internalType":"address","name":"player","type":"address"},{"internalType":"bool","name":"won","type":"bool"},{"internalType":"bool","name":"guess","type":"bool"},{"internalType":"uint256","name":"amount","type":"uint256"},{"internalType":"uint256","name":"timestamp","type":"uint256"}],"internalType":"struct FeedFun.CoinGameResult[10]","name":"","type":"tuple[10]"}],"stateMutability":"view","type":"function"},
+            {"inputs":[],"name":"getCurrentBetCount","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
+            {"inputs":[],"name":"getCurrentBets","outputs":[{"components":[{"internalType":"address","name":"bettor","type":"address"},{"internalType":"uint256","name":"blockNumber","type":"uint256"}],"internalType":"struct FeedFun.Bet[]","name":"","type":"tuple[]"}],"stateMutability":"view","type":"function"},
+            {"inputs":[{"internalType":"address","name":"user","type":"address"}],"name":"getLossCount","outputs":[{"internalType":"uint256","name":"tenLosses","type":"uint256"},{"internalType":"uint256","name":"coinLosses","type":"uint256"}],"stateMutability":"view","type":"function"},
+            {"inputs":[],"name":"getTenGameHistory","outputs":[{"components":[{"internalType":"address","name":"winner","type":"address"},{"internalType":"uint256","name":"winningNumber","type":"uint256"},{"internalType":"uint256","name":"totalBets","type":"uint256"},{"internalType":"uint256","name":"timestamp","type":"uint256"}],"internalType":"struct FeedFun.RoundInfo[10]","name":"","type":"tuple[10]"}],"stateMutability":"view","type":"function"},
+            {"inputs":[{"internalType":"address","name":"bettor","type":"address"}],"name":"hasBetInCurrentRound","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},
+            {"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"hasBetThisRound","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},
+            {"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},
+            {"inputs":[],"name":"placeBet","outputs":[],"stateMutability":"nonpayable","type":"function"},
+            {"inputs":[{"internalType":"bool","name":"guess","type":"bool"}],"name":"playCoinGame","outputs":[],"stateMutability":"nonpayable","type":"function"},
+            {"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"referrers","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},
+            {"inputs":[{"internalType":"address","name":"referrer","type":"address"}],"name":"setReferrer","outputs":[],"stateMutability":"nonpayable","type":"function"},
+            {"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"tenGameHistory","outputs":[{"internalType":"address","name":"winner","type":"address"},{"internalType":"uint256","name":"winningNumber","type":"uint256"},{"internalType":"uint256","name":"totalBets","type":"uint256"},{"internalType":"uint256","name":"timestamp","type":"uint256"}],"stateMutability":"view","type":"function"},
+            {"inputs":[],"name":"tenGameCount","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
+            {"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"tenGameLossCount","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"}
+        ];
+        const feedABI = [
+            {"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},
+            {"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"spender","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
+            {"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"}
+        ];
         const shibariumMainnet = {chainId: 109,chainName: 'Shibarium',nativeCurrency: { name: 'BONE', symbol: 'BONE', decimals: 18 },rpcUrls: ['https://www.shibrpc.com'],blockExplorerUrls: ['https://shibariumscan.io']};
 
         function showModal(message) {
@@ -235,6 +276,11 @@
 
         function closeModal() {
             document.getElementById('modal').style.display = 'none';
+        }
+
+        function formatAmount(amount) {
+            const feed = web3.utils.fromWei(amount, 'ether');
+            return (feed / 100000000).toFixed(0) + '亿 FEED';
         }
 
         async function connectWallet() {
@@ -255,7 +301,7 @@
                         if (switchError.code === 4902) {
                             await window.ethereum.request({method: 'wallet_addEthereumChain',params: [shibariumMainnet]});
                         } else {
-                            showModal('请切换到 Shibarium！');
+                            showModal('请切换到 Shibarium 网络！');
                             return;
                         }
                     }
@@ -263,10 +309,10 @@
                 document.getElementById('walletAddress').innerText = `${accounts[0].slice(0, 6)}...${accounts[0].slice(-4)}`;
                 contract = new web3.eth.Contract(contractABI, contractAddress);
                 feedContract = new web3.eth.Contract(feedABI, feedAddress);
-                showModal('成功连接到 Shibarium！');
+                showModal('已连接到 Shibarium！');
                 updateUI();
             } catch (error) {
-                showModal(`连接失败：${error.message}`);
+                showModal(`连接失败: ${error.message}`);
             } finally {
                 connectButton.classList.remove('loading');
             }
@@ -279,7 +325,7 @@
                 document.getElementById('currentRound').innerText = round;
 
                 const coinPool = await contract.methods.coinGamePool().call();
-                document.getElementById('coinPool').innerText = `${web3.utils.fromWei(coinPool, 'ether')} FEED`;
+                document.getElementById('coinPool').innerText = formatAmount(coinPool);
 
                 const betCount = await contract.methods.getCurrentBetCount().call();
                 const bets = await contract.methods.getCurrentBets().call();
@@ -290,7 +336,7 @@
                     if (bet.bettor.toLowerCase() === accounts[0].toLowerCase()) userPosition = i;
                 });
                 document.getElementById('currentBets').innerHTML = betsTable;
-                document.getElementById('betPosition').innerText = userPosition >= 0 ? `你是第 ${userPosition} 位` : '你尚未参与本轮！';
+                document.getElementById('betPosition').innerText = userPosition >= 0 ? `你是第 ${userPosition} 位` : '你尚未参与本轮游戏！';
 
                 const hasBet = await contract.methods.hasBetInCurrentRound(accounts[0]).call();
                 document.getElementById('betButton').disabled = hasBet;
@@ -313,23 +359,26 @@
                 coinGameHistory.slice().reverse().forEach((game) => {
                     if (game.player !== '0x0000000000000000000000000000000000000000') {
                         const result = game.won ? '赢' : '输';
-                        const amount = game.won ? '20亿 FEED' : '0 FEED';
-                        coinHistoryTable += `<tr><td>${game.player.slice(0, 6)}...${game.player.slice(-4)}</td><td>${result}</td><td>${amount}</td></tr>`;
+                        const coinResult = game.won ? (game.guess ? '正面' : '反面') : (game.guess ? '反面' : '正面');
+                        const amount = game.won ? '18亿 FEED' : '0 FEED';
+                        coinHistoryTable += `<tr><td>${game.player.slice(0, 6)}...${game.player.slice(-4)}</td><td>${result} (${coinResult})</td><td>${amount}</td></tr>`;
                     }
                 });
                 document.getElementById('coinGameHistory').innerHTML = coinHistoryTable;
 
                 const balance = await feedContract.methods.balanceOf(accounts[0]).call();
-                document.getElementById('feedBalance').innerText = `${web3.utils.fromWei(balance, 'ether')} FEED`;
+                document.getElementById('feedBalance').innerText = formatAmount(balance);
 
                 const [tenLosses, coinLosses] = await contract.methods.getLossCount(accounts[0]).call();
                 document.getElementById('coinLosses').innerText = coinLosses;
 
-                const coinPoolValue = web3.utils.fromWei(coinPool, 'ether');
+                const coinPoolValue = web3.utils.fromWei(coinPool, 'ether') / 100000000;
                 const coinButtons = [document.getElementById('coinHeadsButton'), document.getElementById('coinTailsButton')];
-                coinButtons.forEach(btn => btn.disabled = coinPoolValue < 20);
+                coinButtons.forEach(btn => {
+                    btn.disabled = coinPoolValue < 20 || referrer === '0x0000000000000000000000000000000000000000';
+                });
             } catch (error) {
-                console.error('UI 更新失败:', error);
+                console.error('UI update failed:', error);
             }
         }
 
@@ -350,7 +399,7 @@
                 showModal('推荐人设置成功！');
                 updateUI();
             } catch (error) {
-                showModal(`设置推荐人失败：${error.message}`);
+                showModal(`设置推荐人失败: ${error.message}`);
             } finally {
                 button.classList.remove('loading');
             }
@@ -367,22 +416,22 @@
                 const allowance = await feedContract.methods.allowance(accounts[0], contractAddress).call();
                 const betAmount = await contract.methods.TEN_BET_AMOUNT().call();
                 if (allowance < betAmount) {
-                    button.innerText = "批准中";
+                    button.innerText = "授权中";
                     await feedContract.methods.approve(contractAddress, web3.utils.toBN('0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff')).send({from: accounts[0]});
-                    showModal('FEED 已批准！正在下注。');
+                    showModal('FEED 授权成功！正在进行投注。');
                 }
                 const betCount = await contract.methods.getCurrentBetCount().call();
                 if (betCount == 9) {
-                    showModal('你是第 10 次下注！请增加 50% Gas 以结算本轮。');
+                    showModal('你是第 10 个投注！请增加 50% 的 Gas 以结算本轮。');
                 }
                 await contract.methods.placeBet().send({from: accounts[0]});
-                showModal('下注成功！祝你好运！');
+                showModal('投注成功！祝你好运！');
                 updateUI();
             } catch (error) {
-                showModal(`操作失败：${error.message}`);
+                showModal(`操作失败: ${error.message}`);
             } finally {
                 button.classList.remove('loading');
-                button.innerText = "下注 100亿 FEED";
+                button.innerText = "投注 100亿 FEED";
             }
         }
 
@@ -397,15 +446,15 @@
                 const allowance = await feedContract.methods.allowance(accounts[0], contractAddress).call();
                 const betAmount = await contract.methods.COIN_BET_AMOUNT().call();
                 if (allowance < betAmount) {
-                    button.innerText = "批准中";
+                    button.innerText = "授权中";
                     await feedContract.methods.approve(contractAddress, web3.utils.toBN('0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff')).send({from: accounts[0]});
-                    showModal('FEED 已批准！正在投币。');
+                    showModal('FEED 授权成功！正在进行硬币游戏。');
                 }
                 await contract.methods.playCoinGame(guess).send({from: accounts[0]});
-                showModal(`投币完成！请查看钱包结果。`);
+                showModal(`硬币已翻转！请查看钱包结果。`);
                 updateUI();
             } catch (error) {
-                showModal(`操作失败：${error.message}`);
+                showModal(`操作失败: ${error.message}`);
             } finally {
                 button.classList.remove('loading');
                 button.innerText = guess ? "正面 (10亿 FEED)" : "反面 (10亿 FEED)";
@@ -420,7 +469,7 @@
 
         window.ethereum?.on('chainChanged', (chainId) => {
             if (parseInt(chainId, 16) !== 109) {
-                showModal('请切换到 Shibarium！');
+                showModal('请切换到 Shibarium 网络！');
                 web3 = null;
                 contract = null;
                 accounts = null;
