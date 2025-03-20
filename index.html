@@ -140,79 +140,79 @@
         </div>
         <div class="header-content">
             <h1>FeedFun</h1>
-            <div class="game-info">当前轮次: <span id="currentRound">1</span> | 奖池: <span id="coinPool">0 FEED</span></div>
+            <div class="game-info">当前轮次: <span id="currentRound">1</span> | 投币奖池: <span id="coinPool">0 FEED</span></div>
         </div>
     </div>
     <div class="container">
         <div class="section">
             <div class="section-title">连接钱包</div>
             <div class="button-group">
-                <button id="connectButton">连接MetaMask</button>
+                <button id="connectButton">连接 MetaMask</button>
             </div>
             <div class="game-info">钱包地址: <span id="walletAddress">未连接</span></div>
         </div>
         <div class="section">
-            <div class="section-title">设置邀请人</div>
-            <input type="text" id="referrerInput" placeholder="输入邀请人地址" style="padding: 5px; width: 80%; margin-bottom: 10px; border-radius: 5px;">
+            <div class="section-title">设置推荐人</div>
+            <input type="text" id="referrerInput" placeholder="输入推荐人地址" style="padding: 5px; width: 80%; margin-bottom: 10px; border-radius: 5px;">
             <div class="button-group">
-                <button id="setReferrerButton">设置邀请人</button>
+                <button id="setReferrerButton">设置推荐人</button>
             </div>
-            <div class="game-info">你的邀请人: <span id="referrerAddress">未设置</span></div>
+            <div class="game-info">你的推荐人: <span id="referrerAddress">未设置</span></div>
         </div>
         <div class="section">
             <div class="section-title">10人游戏</div>
             <div class="button-group">
-                <button id="betButton">投注10亿FEED</button>
+                <button id="betButton">下注 100亿 FEED</button>
             </div>
             <div class="bet-position" id="betPosition">你尚未参与本轮！</div>
             <table class="bets-table">
-                <thead><tr><th>编号</th><th>投注者</th></tr></thead>
+                <thead><tr><th>编号</th><th>下注者</th></tr></thead>
                 <tbody id="currentBets"></tbody>
             </table>
         </div>
         <div class="section">
-            <div class="section-title">正反游戏</div>
+            <div class="section-title">投币游戏</div>
             <div class="button-group">
-                <button id="coinHeadsButton">正面(1亿FEED)</button>
-                <button id="coinTailsButton">反面(1亿FEED)</button>
+                <button id="coinHeadsButton">正面 (10亿 FEED)</button>
+                <button id="coinTailsButton">反面 (10亿 FEED)</button>
             </div>
-            <div class="game-info">你的输次: <span id="coinLosses">0</span></div>
+            <div class="game-info">你的损失: <span id="coinLosses">0</span></div>
         </div>
         <div class="section">
             <div class="section-title">玩法说明</div>
             <div class="rules-text">
-                <strong>10人游戏:</strong><br>
-                1. 每人投注100亿FEED（需有邀请人）。<br>
-                2. 每轮10人参与。<br>
-                3. 获胜者得800亿FEED。<br>
-                4. 88亿FEED分给10级邀请人。<br>
-                5. 112亿FEED进入正反奖池。<br>
-                6. 第10人投注自动结算。<br>
-                * 注意：第10人需增加50% Gas。<br>
-                * 先授权FEED。<br>
-                <strong>正反游戏:</strong><br>
-                1. 投注10亿FEED（无需邀请人）。<br>
-                2. 40%概率赢20亿FEED。<br>
-                3. 输的金额进入奖池。<br>
-                4. 奖池低于20亿FEED暂停。
+                <strong>10人游戏：</strong><br>
+                1. 每位玩家下注 100亿 FEED（需要推荐人）。<br>
+                2. 每轮 10 名玩家。<br>
+                3. 获胜者获得 800亿 FEED。<br>
+                4. 88亿 FEED 分发给 10 级推荐人。<br>
+                5. 112亿 FEED 进入投币游戏奖池。<br>
+                6. 第 10 次下注自动结算本轮。<br>
+                * 注意：第 10 名玩家需增加 50% Gas。<br>
+                * 需先批准 FEED。<br>
+                <strong>投币游戏：</strong><br>
+                1. 下注 10亿 FEED（无需推荐人）。<br>
+                2. 40% 概率赢得 20亿 FEED。<br>
+                3. 输掉的金额进入奖池。<br>
+                4. 奖池低于 20亿 FEED 时暂停。
             </div>
         </div>
         <div class="section">
-            <div class="section-title">10人游戏历史 (最近10次)</div>
+            <div class="section-title">10人游戏历史 (最近10轮)</div>
             <table class="history-table">
                 <thead><tr><th>轮次</th><th>获胜者</th><th>编号</th></tr></thead>
                 <tbody id="tenGameHistory"></tbody>
             </table>
         </div>
         <div class="section">
-            <div class="section-title">正反游戏历史 (最近10次)</div>
+            <div class="section-title">投币游戏历史 (最近10次)</div>
             <table class="history-table">
                 <thead><tr><th>玩家</th><th>结果</th><th>金额</th></tr></thead>
                 <tbody id="coinGameHistory"></tbody>
             </table>
         </div>
     </div>
-    <footer>由Shibarium驱动 © 2025</footer>
+    <footer>Powered by Shibarium © 2025</footer>
     <div id="modal" class="modal">
         <div class="modal-content">
             <p id="modalMessage"></p>
@@ -241,7 +241,7 @@
             const connectButton = document.getElementById('connectButton');
             try {
                 if (!window.ethereum) {
-                    showModal('请安装MetaMask！');
+                    showModal('请安装 MetaMask！');
                     return;
                 }
                 connectButton.classList.add('loading');
@@ -255,7 +255,7 @@
                         if (switchError.code === 4902) {
                             await window.ethereum.request({method: 'wallet_addEthereumChain',params: [shibariumMainnet]});
                         } else {
-                            showModal('请切换到Shibarium网络！');
+                            showModal('请切换到 Shibarium！');
                             return;
                         }
                     }
@@ -263,10 +263,10 @@
                 document.getElementById('walletAddress').innerText = `${accounts[0].slice(0, 6)}...${accounts[0].slice(-4)}`;
                 contract = new web3.eth.Contract(contractABI, contractAddress);
                 feedContract = new web3.eth.Contract(feedABI, feedAddress);
-                showModal('已连接到Shibarium！');
+                showModal('成功连接到 Shibarium！');
                 updateUI();
             } catch (error) {
-                showModal(`连接失败: ${error.message}`);
+                showModal(`连接失败：${error.message}`);
             } finally {
                 connectButton.classList.remove('loading');
             }
@@ -290,11 +290,10 @@
                     if (bet.bettor.toLowerCase() === accounts[0].toLowerCase()) userPosition = i;
                 });
                 document.getElementById('currentBets').innerHTML = betsTable;
-                document.getElementById('betPosition').innerText = userPosition >= 0 ? `你是第${userPosition}号` : '你尚未参与本轮！';
+                document.getElementById('betPosition').innerText = userPosition >= 0 ? `你是第 ${userPosition} 位` : '你尚未参与本轮！';
 
                 const hasBet = await contract.methods.hasBetInCurrentRound(accounts[0]).call();
-                const betButton = document.getElementById('betButton');
-                betButton.disabled = hasBet;
+                document.getElementById('betButton').disabled = hasBet;
 
                 const referrer = await contract.methods.referrers(accounts[0]).call();
                 document.getElementById('referrerAddress').innerText = referrer === '0x0000000000000000000000000000000000000000' ? '未设置' : `${referrer.slice(0, 6)}...${referrer.slice(-4)}`;
@@ -314,7 +313,7 @@
                 coinGameHistory.slice().reverse().forEach((game) => {
                     if (game.player !== '0x0000000000000000000000000000000000000000') {
                         const result = game.won ? '赢' : '输';
-                        const amount = game.won ? '2亿FEED' : '0 FEED';
+                        const amount = game.won ? '20亿 FEED' : '0 FEED';
                         coinHistoryTable += `<tr><td>${game.player.slice(0, 6)}...${game.player.slice(-4)}</td><td>${result}</td><td>${amount}</td></tr>`;
                     }
                 });
@@ -328,30 +327,30 @@
 
                 const coinPoolValue = web3.utils.fromWei(coinPool, 'ether');
                 const coinButtons = [document.getElementById('coinHeadsButton'), document.getElementById('coinTailsButton')];
-                coinButtons.forEach(btn => btn.disabled = coinPoolValue < 2);
+                coinButtons.forEach(btn => btn.disabled = coinPoolValue < 20);
             } catch (error) {
-                console.error('UI更新失败:', error);
+                console.error('UI 更新失败:', error);
             }
         }
 
         async function setReferrer() {
             if (!web3 || !contract || !accounts || !feedContract) {
-                showModal('请连接钱包！');
+                showModal('请连接你的钱包！');
                 return;
             }
             const referrerInput = document.getElementById('referrerInput').value;
             if (!web3.utils.isAddress(referrerInput)) {
-                showModal('无效的邀请人地址！');
+                showModal('无效的推荐人地址！');
                 return;
             }
             const button = document.getElementById('setReferrerButton');
             try {
                 button.classList.add('loading');
                 await contract.methods.setReferrer(referrerInput).send({from: accounts[0]});
-                showModal('邀请人设置成功！');
+                showModal('推荐人设置成功！');
                 updateUI();
             } catch (error) {
-                showModal(`设置邀请人失败: ${error.message}`);
+                showModal(`设置推荐人失败：${error.message}`);
             } finally {
                 button.classList.remove('loading');
             }
@@ -359,7 +358,7 @@
 
         async function placeBet() {
             if (!web3 || !contract || !accounts || !feedContract) {
-                showModal('请连接钱包！');
+                showModal('请连接你的钱包！');
                 return;
             }
             const button = document.getElementById('betButton');
@@ -368,28 +367,28 @@
                 const allowance = await feedContract.methods.allowance(accounts[0], contractAddress).call();
                 const betAmount = await contract.methods.TEN_BET_AMOUNT().call();
                 if (allowance < betAmount) {
-                    button.innerText = "授权中";
+                    button.innerText = "批准中";
                     await feedContract.methods.approve(contractAddress, web3.utils.toBN('0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff')).send({from: accounts[0]});
-                    showModal('FEED已授权！即将投注。');
+                    showModal('FEED 已批准！正在下注。');
                 }
                 const betCount = await contract.methods.getCurrentBetCount().call();
                 if (betCount == 9) {
-                    showModal('你是第10个投注！请增加50% Gas限额以结算本轮。');
+                    showModal('你是第 10 次下注！请增加 50% Gas 以结算本轮。');
                 }
                 await contract.methods.placeBet().send({from: accounts[0]});
-                showModal('投注成功！祝你好运！');
+                showModal('下注成功！祝你好运！');
                 updateUI();
             } catch (error) {
-                showModal(`操作失败: ${error.message}`);
+                showModal(`操作失败：${error.message}`);
             } finally {
                 button.classList.remove('loading');
-                button.innerText = "投注100亿FEED";
+                button.innerText = "下注 100亿 FEED";
             }
         }
 
         async function playCoinGame(guess) {
             if (!web3 || !contract || !accounts || !feedContract) {
-                showModal('请连接钱包！');
+                showModal('请连接你的钱包！');
                 return;
             }
             const button = guess ? document.getElementById('coinHeadsButton') : document.getElementById('coinTailsButton');
@@ -398,18 +397,18 @@
                 const allowance = await feedContract.methods.allowance(accounts[0], contractAddress).call();
                 const betAmount = await contract.methods.COIN_BET_AMOUNT().call();
                 if (allowance < betAmount) {
-                    button.innerText = "授权中";
+                    button.innerText = "批准中";
                     await feedContract.methods.approve(contractAddress, web3.utils.toBN('0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff')).send({from: accounts[0]});
-                    showModal('FEED已授权！即将开始正反游戏。');
+                    showModal('FEED 已批准！正在投币。');
                 }
                 await contract.methods.playCoinGame(guess).send({from: accounts[0]});
-                showModal(`正反游戏完成！请查看钱包结果。`);
+                showModal(`投币完成！请查看钱包结果。`);
                 updateUI();
             } catch (error) {
-                showModal(`操作失败: ${error.message}`);
+                showModal(`操作失败：${error.message}`);
             } finally {
                 button.classList.remove('loading');
-                button.innerText = guess ? "正面(10亿FEED)" : "反面(10亿FEED)";
+                button.innerText = guess ? "正面 (10亿 FEED)" : "反面 (10亿 FEED)";
             }
         }
 
@@ -421,7 +420,7 @@
 
         window.ethereum?.on('chainChanged', (chainId) => {
             if (parseInt(chainId, 16) !== 109) {
-                showModal('请切换到Shibarium网络！');
+                showModal('请切换到 Shibarium！');
                 web3 = null;
                 contract = null;
                 accounts = null;
@@ -436,7 +435,7 @@
             if (newAccounts.length) {
                 connectWallet();
             } else {
-                showModal('钱包已断开！');
+                showModal('钱包已断开连接！');
                 web3 = null;
                 contract = null;
                 accounts = null;
