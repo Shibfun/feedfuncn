@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FeedFun 白皮书</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .header h1 {
+            font-size: 2.5em;
+            color: #F4A261;
+            margin-bottom: 10px;
+        }
+        .header p {
+            font-size: 1.2em;
+            color: #666;
+        }
+        .section {
+            margin-bottom: 30px;
+        }
+        .section h2 {
+            font-size: 1.8em;
+            color: #2C3E50;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #F4A261;
+            padding-bottom: 5px;
+        }
+        .section h3 {
+            font-size: 1.4em;
+            color: #34495E;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        .section p {
+            font-size: 1em;
+            color: #555;
+            margin-bottom: 10px;
+        }
+        .section ul {
+            list-style-type: disc;
+            padding-left: 20px;
+            margin-bottom: 10px;
+        }
+        .section ul li {
+            font-size: 1em;
+            color: #555;
+            margin-bottom: 8px;
+        }
+        .highlight {
+            background: #F4A261;
+            color: #fff;
+            padding: 2px 8px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .note {
+            background: #E8F0FE;
+            border-left: 5px solid #4285F4;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+            font-style: italic;
+            color: #333;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.9em;
+            color: #666;
+        }
+        .footer a {
+            color: #F4A261;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            .header h1 {
+                font-size: 2em;
+            }
+            .section h2 {
+                font-size: 1.5em;
+            }
+            .section h3 {
+                font-size: 1.2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>FeedFun 白皮书</h1>
+            <p>一个基于 Shibarium 区块链的去中心化游戏平台</p>
+        </div>
+
+        <div class="section">
+            <h2>欢迎体验 FeedFun</h2>
+            <p>欢迎体验 <span class="highlight">FeedFun</span>，一个基于区块链的去中心化游戏平台！我们提供两种有趣的游戏模式：<span class="highlight">10人游戏</span> 和 <span class="highlight">硬币游戏</span>，让你有机会通过投注 FEED 代币赢取奖励。以下是详细的游戏规则，帮你快速上手！</p>
+        </div>
+
+        <div class="section">
+            <h2>基本信息</h2>
+            <ul>
+                <li><strong>代币</strong>：游戏使用 FEED 代币（代币地址：<code>0xe9Cb2D7ADC24Fc59FE00D6C0A0669BDF16805Fe0</code>）。</li>
+                <li><strong>单位</strong>：1B FEED = 10亿 FEED（例如，10B FEED 就是 100亿 FEED）。</li>
+                <li><strong>平台</strong>：游戏运行在 Shibarium 区块链上，确保公平透明。</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>1. 10人游戏规则</h2>
+            <p><strong>10人游戏</strong> 是一个多人竞技游戏，每轮有 10 名玩家参与，通过随机抽选决定获胜者。</p>
+
+            <h3>参与方式</h3>
+            <ul>
+                <li><strong>投注金额</strong>：每位玩家需要投注 <span class="highlight">10B FEED</span>（即 100亿 FEED）。</li>
+                <li><strong>推荐人要求</strong>：参与前必须设置一个推荐人。推荐人地址不能是自己，且必须是已注册的用户。</li>
+                <li><strong>轮次限制</strong>：每轮最多 10 名玩家，每人只能投注一次（同一轮不能重复投注）。</li>
+            </ul>
+
+            <h3>游戏流程</h3>
+            <ol>
+                <li><strong>投注</strong>：玩家投注 10B FEED，系统会记录你的地址和投注时的区块号。</li>
+                <li><strong>凑齐 10 人</strong>：当 10 名玩家都完成投注后，系统会自动结算本轮。</li>
+                <li><strong>随机抽选</strong>：系统通过一个随机算法（基于区块哈希、轮次、时间戳等）生成一个 0-9 的随机数，决定获胜者。
+                    <ul>
+                        <li>随机数对应玩家的投注顺序（0 表示第 1 个投注者，9 表示第 10 个投注者）。</li>
+                    </ul>
+                </li>
+                <li><strong>奖励分配</strong>：
+                    <ul>
+                        <li><strong>获胜者</strong>：获胜者获得 <span class="highlight">80B FEED</span>（即 800亿 FEED）。</li>
+                        <li><strong>推荐人奖励</strong>：获胜者的推荐人（及上层推荐人）会分得 <span class="highlight">8.8B FEED</span>（即 88亿 FEED），按以下层级分配：
+                            <ul>
+                                <li>第 1 级推荐人：3B FEED（30亿 FEED）</li>
+                                <li>第 2 级推荐人：2B FEED（20亿 FEED）</li>
+                                <li>第 3 级推荐人：1B FEED（10亿 FEED）</li>
+                                <li>第 4 级推荐人：0.7B FEED（7亿 FEED）</li>
+                                <li>第 5 级推荐人：0.6B FEED（6亿 FEED）</li>
+                                <li>第 6 级推荐人：0.5B FEED（5亿 FEED）</li>
+                                <li>第 7 级推荐人：0.4B FEED（4亿 FEED）</li>
+                                <li>第 8 级推荐人：0.3B FEED（3亿 FEED）</li>
+                                <li>第 9 级推荐人：0.2B FEED（2亿 FEED）</li>
+                                <li>第 10 级推荐人：0.1B FEED（1亿 FEED）</li>
+                            </ul>
+                        </li>
+                        <li><strong>硬币游戏奖池</strong>：剩余的 <span class="highlight">11.2B FEED</span>（即 112亿 FEED）会进入硬币游戏的奖池。</li>
+                    </ul>
+                </li>
+                <li><strong>新轮次</strong>：结算后，系统会自动开启新一轮，玩家可以再次投注。</li>
+            </ol>
+
+            <h3>注意事项</h3>
+            <ul>
+                <li><strong>Gas 费用</strong>：第 10 个投注的玩家需要支付更高的 Gas 费用（建议增加 50%），因为他会触发本轮的结算。</li>
+                <li><strong>授权 FEED</strong>：首次投注前，需要授权 FEED 代币给合约。</li>
+                <li><strong>失败记录</strong>：未获胜的 9 名玩家会被记录一次失败（用于统计）。</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>2. 硬币游戏规则</h2>
+            <p><strong>硬币游戏</strong> 是一个单人游戏，玩家通过猜测硬币的正反面来赢取奖励。</p>
+
+            <h3>参与方式</h3>
+            <ul>
+                <li><strong>投注金额</strong>：每次投注 <span class="highlight">1B FEED</span>（即 10亿 FEED）。</li>
+                <li><strong>推荐人要求</strong>：参与前必须设置一个推荐人。</li>
+                <li><strong>奖池要求</strong>：硬币游戏奖池必须至少有 <span class="highlight">2B FEED</span>（即 20亿 FEED），否则游戏暂停。</li>
+            </ul>
+
+            <h3>游戏流程</h3>
+            <ol>
+                <li><strong>投注</strong>：玩家投注 1B FEED，并选择猜测硬币是 <span class="highlight">正面</span> 还是 <span class="highlight">反面</span>。</li>
+                <li><strong>随机结果</strong>：系统通过一个随机算法（基于区块哈希、玩家地址、时间戳等）生成一个 0-99 的随机数：
+                    <ul>
+                        <li>如果随机数小于 40（<span class="highlight">40% 概率</span>），玩家获胜。</li>
+                        <li>否则（60% 概率），玩家失败。</li>
+                    </ul>
+                </li>
+                <li><strong>奖励分配</strong>：
+                    <ul>
+                        <li><strong>获胜</strong>：
+                            <ul>
+                                <li>玩家获得 <span class="highlight">1.8B FEED</span>（即 18亿 FEED）。</li>
+                                <li>玩家的推荐人获得 <span class="highlight">0.2B FEED</span>（即 2亿 FEED）。</li>
+                                <li>奖池减少 2B FEED（1.8B + 0.2B）。</li>
+                            </ul>
+                        </li>
+                        <li><strong>失败</strong>：
+                            <ul>
+                                <li>玩家的 1B FEED 进入奖池。</li>
+                                <li>玩家被记录一次失败（用于统计）。</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><strong>历史记录</strong>：每次游戏的结果（玩家地址、是否获胜、猜测、奖励金额、时间戳）都会记录在合约中，最多保存最近 10 次。</li>
+            </ol>
+
+            <h3>注意事项</h3>
+            <ul>
+                <li><strong>授权 FEED</strong>：首次投注前，需要授权 FEED 代币给合约。</li>
+                <li><strong>奖池不足</strong>：如果奖池余额低于 2B FEED，游戏会暂停，直到奖池通过 10人游戏补充足够金额。</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>3. 推荐人系统</h2>
+            <p>FeedFun 有一个推荐人奖励机制，鼓励玩家邀请朋友加入。</p>
+
+            <h3>设置推荐人</h3>
+            <ul>
+                <li><strong>操作</strong>：通过设置功能输入一个已注册的推荐人地址。</li>
+                <li><strong>要求</strong>：
+                    <ul>
+                        <li>每个玩家只能设置一次推荐人，且不能更改。</li>
+                        <li>推荐人不能是自己。</li>
+                        <li>推荐人必须是已注册的用户（即已有推荐人）。</li>
+                    </ul>
+                </li>
+                <li><strong>初始推荐人</strong>：合约部署者是默认的顶级推荐人。</li>
+            </ul>
+
+            <h3>推荐人奖励</h3>
+            <ul>
+                <li><strong>10人游戏</strong>：获胜者的推荐人（及上层推荐人）分得 8.8B FEED（见上文层级分配）。</li>
+                <li><strong>硬币游戏</strong>：玩家获胜时，其推荐人获得 0.2B FEED。</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>4. 其他功能</h2>
+            <h3>历史记录</h3>
+            <ul>
+                <li><strong>10人游戏历史</strong>：保存最近 10 轮的记录，包括获胜者、获胜编号、总投注人数和时间戳。</li>
+                <li><strong>硬币游戏历史</strong>：保存最近 10 次游戏的记录，包括玩家地址、是否获胜、猜测结果、奖励金额和时间戳。</li>
+            </ul>
+
+            <h3>失败统计</h3>
+            <ul>
+                <li><strong>10人游戏</strong>：未获胜的玩家会被记录一次失败。</li>
+                <li><strong>硬币游戏</strong>：失败的玩家会被记录一次失败。</li>
+                <li>玩家可以查看自己的失败次数。</li>
+            </ul>
+
+            <h3>紧急提款</h3>
+            <p>仅限合约部署者调用紧急提款功能，将合约中的所有 FEED 代币提取，并将硬币游戏奖池清零。</p>
+        </div>
+
+        <div class="section">
+            <h2>5. 常见问题</h2>
+            <h3>如何开始游戏？</h3>
+            <ol>
+                <li>准备一个支持 Shibarium 网络的钱包（如 MetaMask），并确保有足够的 FEED 代币。</li>
+                <li>连接钱包到 FeedFun DApp。</li>
+                <li>设置推荐人（输入一个已注册的推荐人地址）。</li>
+                <li>授权 FEED 代币给合约。</li>
+                <li>选择“10人游戏”或“硬币游戏”进行投注。</li>
+            </ol>
+
+            <h3>游戏是否公平？</h3>
+            <p>是的！FeedFun 使用基于区块链的随机算法（结合区块哈希、时间戳等），确保结果公平且不可篡改。所有操作都在链上完成，公开透明。</p>
+
+            <h3>为什么硬币游戏暂停了？</h3>
+            <p>如果硬币游戏奖池低于 2B FEED（20亿 FEED），游戏会暂停。等待 10人游戏补充奖池后即可继续。</p>
+
+            <h3>推荐人有什么好处？</h3>
+            <ul>
+                <li><strong>10人游戏</strong>：获胜时，推荐人分得 8.8B FEED。</li>
+                <li><strong>硬币游戏</strong>：获胜时，推荐人获得 0.2B FEED。</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>6. 总结</h2>
+            <p>FeedFun 是一个简单又刺激的区块链游戏，结合了多人竞技和单人挑战两种模式：</p>
+            <ul>
+                <li><strong>10人游戏</strong>：10 人一轮，投注 10B FEED，获胜者得 80B FEED，还有推荐人奖励和奖池补充。</li>
+                <li><strong>硬币游戏</strong>：单人游戏，投注 1B FEED，40% 概率赢 1.8B FEED，推荐人得 0.2B FEED。</li>
+            </ul>
+            <p>快来加入 FeedFun，试试你的运气吧！如果有任何问题，欢迎联系我们（Twitter: <a href="https://x.com/feedcto" target="_blank">@feedcto</a>）。</p>
+        </div>
+
+        <div class="section">
+            <h2>补充说明</h2>
+            <ul>
+                <li><strong>合约地址</strong>：<code>0x6Ff816320fA51e8DBCD5a1286aaB6cd2c9F35B26</code>。</li>
+                <li><strong>安全性</strong>：合约经过设计，确保资金安全，但建议用户仔细检查钱包授权和网络设置。</li>
+            </ul>
+            <div class="note">
+                提示：请确保你的钱包已切换到 Shibarium 网络，并有足够的 FEED 代币和 Gas 费用（BONE 代币）以完成交易。
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Powered by Shibarium © 2025 | <a href="https://x.com/feedcto" target="_blank">联系我们</a></p>
+        </div>
+    </div>
+</body>
+</html>
